@@ -9,6 +9,16 @@ logaritmos: null,
 promedio: null,
 varianza: null,
 desviacion:null,
+logVeryShort:null,
+logShort:null,
+logMedium:null,
+logLong:null,
+logVeryLong:null,
+veryShort:null,
+short:null,
+medium:null,
+long:null,
+veryLong:null,
 
 actions:{
   metodo_leerArchivo: function(evt){
@@ -39,13 +49,19 @@ actions:{
        div[i] = texto_numeros[1]/texto_numeros[2];
      }
      this.set('division',div);
+     /*document.getElementById('sumasInput').disabled = true;
+     document.getElementById('sumasInput').hidden = true;
+     document.getElementById('cuadInput').hidden = false;
+     document.getElementById("resultado1").innerHTML = "Sumatoria de X= " + (sumX);
+     document.getElementById("resultado2").innerHTML = "Sumatoria de Y= " + sumY;
+     document.getElementById("resultado3").innerHTML = "Numero de datos= " + tam;*/
    },
 
    metodo_calcularLog: function() {
      var div = this.get('division');
      var log = [];
      for (var i = 0; i < div.length; i++) {
-       log[i] = Math.log(div[i]);
+       log[i] = Math.round(Math.log(div[i])*10000)/10000;
      }
      this.set('logaritmos',log);
    },
@@ -59,6 +75,7 @@ actions:{
        suma = suma + log[i];
      }
      prom = suma / size;
+     prom = Math.round(prom*10000)/10000;
      this.set('promedio',prom);
    },
 
@@ -75,6 +92,7 @@ actions:{
        suma = suma + num;
      }
      vari = suma / denom;
+     vari = Math.round(vari*10000)/10000;
      this.set('varianza',vari);
    },
 
@@ -82,18 +100,57 @@ actions:{
      var vari = this.get('varianza');
      var desvi = 0;
      desvi = Math.sqrt(vari);
+     desvi = Math.round(desvi*10000)/10000;
      this.set('desviacion',desvi);
    },
 
    metodo_cacularRangos: function(){
-     var vs = 0;
-     var s = 0;
-     var m = 0;
-     var l = 0;
-     var vl = 0;
+     var logvs = 0;
+     var logs = 0;
+     var logm = 0;
+     var logl = 0;
+     var logvl = 0;
      var prom = this.get('promedio');
      var desvi = this.get('desviacion');
-     vs = Math.log()
+     var dif = 2*desvi;
+     logvs = prom - dif;
+     logs = prom - desvi;
+     logm = prom;
+     logl = prom + desvi;
+     logvl = prom + dif;
+     logvs = Math.round(logvs*10000)/10000;
+     logs = Math.round(logs*10000)/10000;
+     logm = Math.round(logm*10000)/10000;
+     logl = Math.round(logl*10000)/10000;
+     logvl = Math.round(logvl*10000)/10000;
+     this.set('logVeryShort',logvs);
+     this.set('logShort',logs);
+     this.set('logMedium',logm);
+     this.set('logLong',logl);
+     this.set('logVeryLong',logvl);
+   },
+
+   metodo_calcularExpRangos: function() {
+     var logvs = this.get('logVeryShort');
+     var logs = this.get('logShort');
+     var logm = this.get('logMedium');
+     var logl = this.get('logLong');
+     var logvl = this.get('logVeryLong');
+     var vs = Math.exp(logvs);
+     var s = Math.exp(logs);
+     var m = Math.exp(logm);
+     var l = Math.exp(logl);
+     var vl = Math.exp(logvl);
+     vs = Math.round(vs*10000)/10000;
+     s = Math.round(s*10000)/10000;
+     m = Math.round(m*10000)/10000;
+     l = Math.round(l*10000)/10000;
+     vl = Math.round(vl*10000)/10000;
+     this.set('veryShort',vs);
+     this.set('short',s);
+     this.set('medium',m);
+     this.set('long',l);
+     this.set('veryLong',vl);
    }
 }
 });
