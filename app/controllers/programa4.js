@@ -7,6 +7,8 @@ textFilas: "",
 division: null,
 logaritmos: null,
 promedio: null,
+varianza: null,
+desviacion:null,
 
 actions:{
   metodo_leerArchivo: function(evt){
@@ -64,10 +66,34 @@ actions:{
      var prom = this.get('promedio');
      var log = this.get('logaritmos');
      var suma = 0;
-     var varianza = 0;
-     for (var i = 0; i < array.length; i++) {
-       array[i]
+     var vari = 0;
+     var num = 0;
+     var denom = log.length - 1;
+     for (var i = 0; i < log.length; i++) {
+       num = log[i]-prom;
+       num = Math.pow(num,2);
+       suma = suma + num;
      }
+     vari = suma / denom;
+     this.set('varianza',vari);
+   },
+
+   metodo_calcularDesviacion: function(){
+     var vari = this.get('varianza');
+     var desvi = 0;
+     desvi = Math.sqrt(vari);
+     this.set('desviacion',desvi);
+   },
+
+   metodo_cacularRangos: function(){
+     var vs = 0;
+     var s = 0;
+     var m = 0;
+     var l = 0;
+     var vl = 0;
+     var prom = this.get('promedio');
+     var desvi = this.get('desviacion');
+     vs = Math.log()
    }
 }
 });
