@@ -31,6 +31,7 @@ actions:{
         texto_contenido = objeto_evento.target.result;
         document.getElementById("texto").innerHTML = texto_contenido;
         esto.set('text', texto_contenido);
+        document.getElementById('dividirInput').hidden = false;
       };
       objeto_lector.readAsText(vector_archivos);
       }else {
@@ -46,15 +47,23 @@ actions:{
      var div = [];
      for (var i = 0; i < texto_filas.length; i++) {
        texto_numeros=texto_filas[i].split(",");
-       div[i] = texto_numeros[1]/texto_numeros[2];
+       for (var j = 0; j < texto_numeros.length; j++) {
+         if(texto_numeros[j]!=""){
+           if(Number.isInteger(parseInt(texto_numeros[j]))){
+             div[i] = texto_numeros[1]/texto_numeros[2];
+             div[i] = Math.round(div[i]*10000)/10000;
+           }else{
+              alert('El texto ingresado tiene caracteres no permitidos');
+           }
+         }
+       }
      }
+
      this.set('division',div);
-     /*document.getElementById('sumasInput').disabled = true;
-     document.getElementById('sumasInput').hidden = true;
-     document.getElementById('cuadInput').hidden = false;
-     document.getElementById("resultado1").innerHTML = "Sumatoria de X= " + (sumX);
-     document.getElementById("resultado2").innerHTML = "Sumatoria de Y= " + sumY;
-     document.getElementById("resultado3").innerHTML = "Numero de datos= " + tam;*/
+     document.getElementById('dividirInput').disabled = true;
+     document.getElementById('dividirInput').hidden = true;
+     document.getElementById('logInput').hidden = false;
+     document.getElementById("resultado1").innerHTML = "Lineas de codigo / Metodos: " + (div);
    },
 
    metodo_calcularLog: function() {
@@ -64,6 +73,10 @@ actions:{
        log[i] = Math.round(Math.log(div[i])*10000)/10000;
      }
      this.set('logaritmos',log);
+     document.getElementById('logInput').disabled = true;
+     document.getElementById('logInput').hidden = true;
+     document.getElementById('promInput').hidden = false;
+     document.getElementById("resultado1").innerHTML = "Logaritmos ln(x): " + (log);
    },
 
    metodo_calcularProm: function() {
@@ -77,6 +90,10 @@ actions:{
      prom = suma / size;
      prom = Math.round(prom*10000)/10000;
      this.set('promedio',prom);
+     document.getElementById('promInput').disabled = true;
+     document.getElementById('promInput').hidden = true;
+     document.getElementById('variInput').hidden = false;
+     document.getElementById("resultado1").innerHTML = "Promedio de logaritmos: " + (prom);
    },
 
    metodo_calcularVarianza: function() {
@@ -94,6 +111,10 @@ actions:{
      vari = suma / denom;
      vari = Math.round(vari*10000)/10000;
      this.set('varianza',vari);
+     document.getElementById('variInput').disabled = true;
+     document.getElementById('variInput').hidden = true;
+     document.getElementById('desviInput').hidden = false;
+     document.getElementById("resultado1").innerHTML = "Varianza: " + (vari);
    },
 
    metodo_calcularDesviacion: function(){
@@ -102,6 +123,10 @@ actions:{
      desvi = Math.sqrt(vari);
      desvi = Math.round(desvi*10000)/10000;
      this.set('desviacion',desvi);
+     document.getElementById('desviInput').disabled = true;
+     document.getElementById('desviInput').hidden = true;
+     document.getElementById('logRangInput').hidden = false;
+     document.getElementById("resultado1").innerHTML = "Desviacion Estandar: " + (desvi);
    },
 
    metodo_cacularRangos: function(){
@@ -128,6 +153,15 @@ actions:{
      this.set('logMedium',logm);
      this.set('logLong',logl);
      this.set('logVeryLong',logvl);
+     document.getElementById('logRangInput').disabled = true;
+     document.getElementById('logRangInput').hidden = true;
+     document.getElementById('expRangInput').hidden = false;
+     document.getElementById("resultado0").innerHTML = "Rangos Logaritmicos";
+     document.getElementById("resultado1").innerHTML = "Very Short: " + (logvs);
+     document.getElementById("resultado2").innerHTML = "Short: " + (logs);
+     document.getElementById("resultado3").innerHTML = "Medium: " + (logm);
+     document.getElementById("resultado4").innerHTML = "Long: " + (logl);
+     document.getElementById("resultado5").innerHTML = "Very Long: " + (logvl);
    },
 
    metodo_calcularExpRangos: function() {
@@ -151,6 +185,14 @@ actions:{
      this.set('medium',m);
      this.set('long',l);
      this.set('veryLong',vl);
+     document.getElementById('expRangInput').disabled = true;
+     document.getElementById('expRangInput').hidden = true;
+     document.getElementById("resultado0").innerHTML = "Rangos Exponenciales";
+     document.getElementById("resultado1").innerHTML = "Very Short: " + (vs);
+     document.getElementById("resultado2").innerHTML = "Short: " + (s);
+     document.getElementById("resultado3").innerHTML = "Medium: " + (m);
+     document.getElementById("resultado4").innerHTML = "Long: " + (l);
+     document.getElementById("resultado5").innerHTML = "Very Long: " + (vl);
    }
 }
 });

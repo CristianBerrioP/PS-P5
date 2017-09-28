@@ -7,6 +7,8 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('programa4');
+  this.route('programa4', { path: '/controllers' });
 });
 
 export default Router;
